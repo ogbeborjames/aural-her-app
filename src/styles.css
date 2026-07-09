@@ -1,0 +1,194 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Body Bestie design system.
+ * Palette: lavender, soft pink, sage green, cream, white.
+ * All colors are oklch semantic tokens — never hardcode in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-lavender: var(--lavender);
+  --color-pink: var(--pink);
+  --color-sage: var(--sage);
+  --color-cream: var(--cream);
+  --color-period: var(--period);
+  --color-fertile: var(--fertile);
+  --color-ovulation: var(--ovulation);
+  --color-pms: var(--pms);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --shadow-soft: 0 8px 30px -12px oklch(0.7 0.09 320 / 0.25);
+  --shadow-glow: 0 20px 60px -20px oklch(0.75 0.12 320 / 0.35);
+}
+
+:root {
+  --radius: 1.25rem;
+
+  /* Soft cream base */
+  --background: oklch(0.985 0.012 80);
+  --foreground: oklch(0.28 0.04 300);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.28 0.04 300);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.28 0.04 300);
+
+  /* Lavender primary */
+  --primary: oklch(0.72 0.11 305);
+  --primary-foreground: oklch(0.99 0.005 80);
+
+  /* Soft pink */
+  --secondary: oklch(0.93 0.04 15);
+  --secondary-foreground: oklch(0.35 0.09 15);
+
+  --muted: oklch(0.96 0.015 80);
+  --muted-foreground: oklch(0.5 0.03 300);
+
+  /* Sage accent */
+  --accent: oklch(0.9 0.05 155);
+  --accent-foreground: oklch(0.35 0.06 155);
+
+  --destructive: oklch(0.62 0.2 20);
+  --destructive-foreground: oklch(0.99 0.005 80);
+
+  --border: oklch(0.92 0.02 320);
+  --input: oklch(0.94 0.02 320);
+  --ring: oklch(0.72 0.11 305);
+
+  /* Named palette */
+  --lavender: oklch(0.82 0.09 305);
+  --pink: oklch(0.86 0.07 15);
+  --sage: oklch(0.83 0.06 155);
+  --cream: oklch(0.97 0.02 85);
+
+  /* Cycle phase colors */
+  --period: oklch(0.68 0.17 15);
+  --fertile: oklch(0.78 0.11 155);
+  --ovulation: oklch(0.72 0.15 195);
+  --pms: oklch(0.75 0.1 55);
+
+  --chart-1: oklch(0.72 0.11 305);
+  --chart-2: oklch(0.78 0.11 155);
+  --chart-3: oklch(0.75 0.13 15);
+  --chart-4: oklch(0.75 0.1 55);
+  --chart-5: oklch(0.72 0.15 195);
+}
+
+.dark {
+  --background: oklch(0.19 0.03 300);
+  --foreground: oklch(0.96 0.015 80);
+  --card: oklch(0.24 0.035 300);
+  --card-foreground: oklch(0.96 0.015 80);
+  --popover: oklch(0.24 0.035 300);
+  --popover-foreground: oklch(0.96 0.015 80);
+  --primary: oklch(0.78 0.11 305);
+  --primary-foreground: oklch(0.19 0.03 300);
+  --secondary: oklch(0.32 0.05 15);
+  --secondary-foreground: oklch(0.96 0.015 80);
+  --muted: oklch(0.28 0.03 300);
+  --muted-foreground: oklch(0.72 0.03 300);
+  --accent: oklch(0.32 0.05 155);
+  --accent-foreground: oklch(0.96 0.015 80);
+  --destructive: oklch(0.65 0.2 20);
+  --destructive-foreground: oklch(0.99 0.005 80);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.78 0.11 305);
+
+  /* Dark palette overrides */
+  --cream: oklch(0.28 0.03 85);
+  --lavender: oklch(0.45 0.08 305);
+  --pink: oklch(0.45 0.06 15);
+  --sage: oklch(0.4 0.05 155);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { min-height: 100%; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(60% 40% at 10% -10%, oklch(0.86 0.07 305 / 0.35) 0%, transparent 60%),
+      radial-gradient(50% 40% at 110% 10%, oklch(0.88 0.06 15 / 0.3) 0%, transparent 60%),
+      radial-gradient(50% 40% at 50% 110%, oklch(0.86 0.06 155 / 0.28) 0%, transparent 60%);
+    background-attachment: fixed;
+    transition: background-color 300ms ease, color 300ms ease;
+  }
+  .dark body {
+    background-image:
+      radial-gradient(60% 40% at 10% -10%, oklch(0.35 0.06 305 / 0.45) 0%, transparent 60%),
+      radial-gradient(50% 40% at 110% 10%, oklch(0.35 0.05 15 / 0.4) 0%, transparent 60%),
+      radial-gradient(50% 40% at 50% 110%, oklch(0.3 0.05 155 / 0.35) 0%, transparent 60%);
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+}
+
+@utility bb-card {
+  background-color: var(--color-card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border);
+}
+
+@utility bb-gradient-primary {
+  background-image: linear-gradient(135deg, var(--lavender) 0%, var(--pink) 100%);
+  color: oklch(0.28 0.04 300);
+}
+.dark .bb-gradient-primary {
+  color: oklch(0.98 0.005 80);
+}
+
+@utility bb-gradient-sage {
+  background-image: linear-gradient(135deg, var(--sage) 0%, var(--cream) 100%);
+  color: oklch(0.28 0.04 300);
+}
+.dark .bb-gradient-sage {
+  color: oklch(0.98 0.005 80);
+}
+
+/* Smooth theme transition — applied by ThemeToggle during toggles */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-duration: 300ms !important;
+  transition-timing-function: ease !important;
+}
