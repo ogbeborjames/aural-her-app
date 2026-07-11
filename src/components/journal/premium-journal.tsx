@@ -28,7 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import type { JournalEntry } from "@/libcd /journal";
+import type { JournalEntry } from "@/lib/journal";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -299,8 +299,8 @@ export function PremiumJournal({
       initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ type: "spring", stiffness: 120, damping: 18 }}
-      className="relative overflow-hidden rounded-[24px] border border-border/60 bg-card/70 p-4 shadow-[0_24px_80px_-38px_oklch(0.54_0.12_330_/_0.55)] backdrop-blur-2xl sm:p-6"
-      aria-labelledby="journal-title"
+       className="relative overflow-hidden rounded-[24px] border border-border/60 bg-card/70 p-4 shadow-[0_24px_80px_-38px_oklch(0.54_0.12_330/0.55)] backdrop-blur-2xl sm:p-6"
+         aria-labelledby="journal-title"
     >
       <div className="pointer-events-none absolute inset-0 bb-journal-overlay" />
 
@@ -310,8 +310,8 @@ export function PremiumJournal({
             <motion.div
               animate={{ rotate: [0, -5, 4, 0], scale: [1, 1.04, 1] }}
               transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
-              className="grid size-14 place-items-center rounded-[20px] bg-gradient-to-br from-pink/80 via-card to-lavender/70 text-primary shadow-[0_16px_34px_-20px_oklch(0.58_0.16_330_/_0.75)]"
-              aria-hidden="true"
+               
+              className="relative overflow-hidden rounded-[24px] border border-border/60 bg-card/70 p-4 shadow-[0_24px_80px_-38px_oklch(0.54_0.12_330/0.55)] backdrop-blur-2xl sm:p-6"
             >
               <BookHeart className="size-7" />
             </motion.div>
@@ -341,7 +341,7 @@ export function PremiumJournal({
             onChange={(event) => onChange(event.target.value)}
             placeholder="How are you feeling today? Tell Body Bestie anything that's on your mind..."
             aria-label="Today's journal entry"
-            className="max-h-[520px] min-h-48 resize-none border-0 bg-transparent px-2 py-3 text-base leading-7 shadow-none outline-none placeholder:text-muted-foreground/75 focus-visible:ring-0 sm:px-4"
+             className="max-h-130 min-h-48 resize-none border-0 bg-transparent px-2 py-3 text-base leading-7 shadow-none outline-none placeholder:text-muted-foreground/75 focus-visible:ring-0 sm:px-4"
           />
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 px-2 pt-3 text-xs font-semibold text-muted-foreground sm:px-4">
             <span>{value.length.toLocaleString()} characters</span>
