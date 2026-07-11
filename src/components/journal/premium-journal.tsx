@@ -28,7 +28,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import type { JournalEntry } from "@/lib/journal";
+import type { JournalEntry } from "@/libcd /journal";
 
 type SaveStatus = "idle" | "saving" | "saved" | "error";
 
@@ -299,10 +299,10 @@ export function PremiumJournal({
       initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ type: "spring", stiffness: 120, damping: 18 }}
-      className="relative overflow-hidden rounded-[24px] border border-white/70 bg-white/70 p-4 shadow-[0_24px_80px_-38px_oklch(0.54_0.12_330_/_0.55)] backdrop-blur-2xl sm:p-6"
+      className="relative overflow-hidden rounded-[24px] border border-border/60 bg-card/70 p-4 shadow-[0_24px_80px_-38px_oklch(0.54_0.12_330_/_0.55)] backdrop-blur-2xl sm:p-6"
       aria-labelledby="journal-title"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,oklch(0.88_0.08_15_/_0.42),transparent_34%),radial-gradient(circle_at_100%_16%,oklch(0.82_0.09_305_/_0.34),transparent_30%),linear-gradient(135deg,oklch(1_0_0_/_0.72),oklch(0.97_0.02_85_/_0.52))]" />
+      <div className="pointer-events-none absolute inset-0 bb-journal-overlay" />
 
       <div className="relative space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -310,7 +310,7 @@ export function PremiumJournal({
             <motion.div
               animate={{ rotate: [0, -5, 4, 0], scale: [1, 1.04, 1] }}
               transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
-              className="grid size-14 place-items-center rounded-[20px] bg-gradient-to-br from-pink/80 via-white to-lavender/70 text-primary shadow-[0_16px_34px_-20px_oklch(0.58_0.16_330_/_0.75)]"
+              className="grid size-14 place-items-center rounded-[20px] bg-gradient-to-br from-pink/80 via-card to-lavender/70 text-primary shadow-[0_16px_34px_-20px_oklch(0.58_0.16_330_/_0.75)]"
               aria-hidden="true"
             >
               <BookHeart className="size-7" />
@@ -334,7 +334,7 @@ export function PremiumJournal({
           <SavePill status={saveStatus} />
         </div>
 
-        <div className="rounded-[24px] border border-white/80 bg-white/60 p-3 shadow-inner backdrop-blur-xl transition focus-within:border-primary/50 focus-within:shadow-[0_0_0_4px_oklch(0.82_0.09_305_/_0.18),0_24px_70px_-42px_oklch(0.54_0.12_330_/_0.75)]">
+        <div className="rounded-[24px] border border-border/60 bg-card/60 p-3 shadow-inner backdrop-blur-xl transition focus-within:border-primary/50 focus-within:shadow-[0_0_0_4px_oklch(0.82_0.09_305_/_0.18),0_24px_70px_-42px_oklch(0.54_0.12_330_/_0.75)]">
           <Textarea
             ref={textareaRef}
             value={value}
@@ -343,7 +343,7 @@ export function PremiumJournal({
             aria-label="Today's journal entry"
             className="max-h-[520px] min-h-48 resize-none border-0 bg-transparent px-2 py-3 text-base leading-7 shadow-none outline-none placeholder:text-muted-foreground/75 focus-visible:ring-0 sm:px-4"
           />
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/70 px-2 pt-3 text-xs font-semibold text-muted-foreground sm:px-4">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 px-2 pt-3 text-xs font-semibold text-muted-foreground sm:px-4">
             <span>{value.length.toLocaleString()} characters</span>
             <span>{words.toLocaleString()} words</span>
           </div>
@@ -386,7 +386,7 @@ export function PremiumJournal({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.96, height: 0 }}
               transition={{ type: "spring", stiffness: 220, damping: 22 }}
-              className="rounded-[24px] border border-primary/20 bg-white/70 p-4 shadow-[0_18px_46px_-34px_oklch(0.4_0.12_305_/_0.75)] backdrop-blur-xl"
+              className="rounded-[24px] border border-primary/20 bg-card/70 p-4 shadow-[0_18px_46px_-34px_oklch(0.4_0.12_305_/_0.75)] backdrop-blur-xl"
               aria-label="Saved journal for today"
             >
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
@@ -406,14 +406,14 @@ export function PremiumJournal({
                     type="button"
                     variant="ghost"
                     onClick={() => setViewerEntry(todaysSavedEntry)}
-                    className="h-10 rounded-full px-4 text-primary hover:bg-white/70"
+                    className="h-10 rounded-full px-4 text-primary hover:bg-muted/70"
                   >
                     Read
                   </Button>
                   <button
                     type="button"
                     onClick={() => onToggleFavorite(todaysSavedEntry.id)}
-                    className="grid size-10 place-items-center rounded-full bg-white/75 text-primary transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="grid size-10 place-items-center rounded-full bg-muted/75 text-primary transition hover:-translate-y-0.5 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                     aria-label={
                       todaysSavedEntry.favorite
                         ? "Remove today's journal from favorites"
@@ -431,7 +431,7 @@ export function PremiumJournal({
                         setDeleteEntry(todaysSavedEntry);
                       }, 260);
                     }}
-                    className="inline-flex h-10 items-center gap-2 rounded-full border border-rose-200/80 bg-white/60 px-4 text-sm font-semibold text-rose-600 shadow-sm transition hover:-translate-y-0.5 hover:border-rose-300 hover:bg-rose-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
+                    className="inline-flex h-10 items-center gap-2 rounded-full border border-destructive/30 bg-muted/60 px-4 text-sm font-semibold text-destructive shadow-sm transition hover:-translate-y-0.5 hover:border-destructive/50 hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/30"
                     aria-label="Delete today's saved journal"
                   >
                     <Trash2 className="size-4" />
@@ -461,7 +461,7 @@ export function PremiumJournal({
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search entries"
-                className="h-12 rounded-full border-white/80 bg-white/70 pl-11 shadow-sm focus-visible:ring-2 focus-visible:ring-primary"
+                className="h-12 rounded-full border-border/60 bg-card/70 pl-11 shadow-sm focus-visible:ring-2 focus-visible:ring-primary"
               />
             </label>
           </div>
@@ -491,7 +491,7 @@ export function PremiumJournal({
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                className="rounded-[24px] border border-dashed border-primary/30 bg-white/45 p-6 text-center text-sm text-muted-foreground"
+                className="rounded-[24px] border border-dashed border-primary/30 bg-card/45 p-6 text-center text-sm text-muted-foreground"
               >
                 Your saved journal notes will bloom here by date.
               </motion.div>
@@ -503,9 +503,9 @@ export function PremiumJournal({
       <JournalViewer entry={viewerEntry} onOpenChange={(open) => !open && setViewerEntry(null)} />
 
       <Dialog open={Boolean(deleteEntry)} onOpenChange={(open) => !open && setDeleteEntry(null)}>
-        <DialogContent className="rounded-[24px] border-white/70 bg-white/90 shadow-[0_30px_90px_-42px_oklch(0.5_0.14_25_/_0.7)] backdrop-blur-2xl">
+        <DialogContent className="rounded-[24px] border border-border/60 bg-card/90 shadow-[0_30px_90px_-42px_oklch(0.5_0.14_25_/_0.7)] backdrop-blur-2xl">
           <DialogHeader>
-            <div className="mb-2 grid size-12 place-items-center rounded-[18px] bg-rose-50 text-rose-500">
+            <div className="mb-2 grid size-12 place-items-center rounded-[18px] bg-destructive/15 text-destructive">
               <Trash2 className="size-6" />
             </div>
             <DialogTitle className="font-display text-2xl">Delete Today's Journal?</DialogTitle>
@@ -520,7 +520,7 @@ export function PremiumJournal({
               type="button"
               variant="outline"
               onClick={() => setDeleteEntry(null)}
-              className="h-12 rounded-full border-white/80 bg-white/75 px-6"
+              className="h-12 rounded-full border-border/60 bg-muted/75 px-6"
             >
               Cancel
             </Button>
@@ -546,7 +546,7 @@ export function PremiumJournal({
 
 function SavePill({ status }: { status: SaveStatus }) {
   return (
-    <div className="inline-flex h-11 items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 text-sm font-semibold text-muted-foreground shadow-sm backdrop-blur">
+    <div className="inline-flex h-11 items-center gap-2 rounded-full border border-border/60 bg-card/70 px-4 text-sm font-semibold text-muted-foreground shadow-sm backdrop-blur">
       <AnimatePresence mode="wait" initial={false}>
         {status === "saving" ? (
           <motion.span
@@ -565,12 +565,12 @@ function SavePill({ status }: { status: SaveStatus }) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
-            className="inline-flex items-center gap-2 text-emerald-700"
+            className="inline-flex items-center gap-2 text-primary"
           >
             <motion.span
               initial={{ scale: 0, rotate: -20 }}
               animate={{ scale: 1, rotate: 0 }}
-              className="grid size-6 place-items-center rounded-full bg-emerald-100"
+              className="grid size-6 place-items-center rounded-full bg-primary/20"
               aria-hidden="true"
             >
               <Check className="size-4" />
@@ -582,7 +582,7 @@ function SavePill({ status }: { status: SaveStatus }) {
             key="error"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="inline-flex items-center gap-2 text-rose-600"
+            className="inline-flex items-center gap-2 text-destructive"
           >
             <X className="size-4" />
             Save paused
@@ -602,11 +602,11 @@ function InsightCard({ insight }: { insight: ReturnType<typeof getInsight> }) {
     <motion.div
       layout
       whileHover={{ y: -2 }}
-      className="rounded-[24px] border border-white/75 bg-gradient-to-br from-white/78 via-pink/30 to-sage/35 p-5 shadow-[0_18px_46px_-34px_oklch(0.4_0.12_305_/_0.65)]"
+      className="rounded-[24px] border border-border/60 bg-gradient-to-br from-card/80 via-pink/30 to-sage/35 p-5 shadow-[0_18px_46px_-34px_oklch(0.4_0.12_305_/_0.65)]"
     >
       <div className="flex items-start gap-3">
         <div
-          className="grid size-11 place-items-center rounded-[16px] bg-white/75 text-primary shadow-sm"
+          className="grid size-11 place-items-center rounded-[16px] bg-muted/75 text-primary shadow-sm"
           aria-hidden="true"
         >
           <Sparkles className="size-5" />
@@ -649,21 +649,21 @@ function JournalStats({
   ];
 
   return (
-    <div className="rounded-[24px] border border-white/75 bg-white/55 p-5 shadow-sm backdrop-blur">
+    <div className="rounded-[24px] border border-border/60 bg-card/55 p-5 shadow-sm backdrop-blur">
       <div className="mb-4 flex items-center gap-2">
         <BarChart3 className="size-5 text-primary" aria-hidden="true" />
         <h3 className="font-display text-xl font-semibold">Reflection Statistics</h3>
       </div>
       <div className="grid gap-3 sm:grid-cols-5">
         {items.map(([label, value]) => (
-          <div key={label} className="rounded-[18px] bg-white/65 p-3">
+          <div key={label} className="rounded-[18px] bg-muted/65 p-3">
             <p className="text-xs font-semibold text-muted-foreground">{label}</p>
             <p className="mt-1 text-sm font-bold text-foreground">{value}</p>
           </div>
         ))}
       </div>
       <div
-        className="mt-4 flex h-24 items-end gap-2 rounded-[18px] bg-white/55 px-3 py-2"
+        className="mt-4 flex h-24 items-end gap-2 rounded-[18px] bg-muted/55 px-3 py-2"
         aria-label="Monthly reflection graph"
       >
         {stats.graph.length ? (
@@ -712,7 +712,7 @@ function TimelineCard({
       exit={{ opacity: 0, scale: 0.92, height: 0, margin: 0 }}
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 240, damping: 22 }}
-      className="rounded-[24px] border border-white/75 bg-white/65 p-4 shadow-[0_16px_44px_-34px_oklch(0.4_0.12_305_/_0.75)]"
+      className="rounded-[24px] border border-border/60 bg-card/65 p-4 shadow-[0_16px_44px_-34px_oklch(0.4_0.12_305_/_0.75)]"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -727,7 +727,7 @@ function TimelineCard({
         <button
           type="button"
           onClick={onFavorite}
-          className="grid size-10 place-items-center rounded-full bg-white/70 text-primary transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="grid size-10 place-items-center rounded-full bg-muted/70 text-primary transition hover:-translate-y-0.5 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           aria-label={entry.favorite ? "Remove from favorites" : "Add to favorites"}
         >
           <Star className={cn("size-5", entry.favorite && "fill-primary")} />
@@ -748,7 +748,7 @@ function TimelineCard({
         <button
           type="button"
           onClick={onDelete}
-          className="inline-flex h-10 items-center gap-2 rounded-full border border-rose-200/80 bg-white/55 px-4 text-sm font-semibold text-rose-600 shadow-sm transition hover:-translate-y-0.5 hover:border-rose-300 hover:bg-rose-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
+          className="inline-flex h-10 items-center gap-2 rounded-full border border-destructive/30 bg-muted/55 px-4 text-sm font-semibold text-destructive shadow-sm transition hover:-translate-y-0.5 hover:border-destructive/50 hover:bg-destructive/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-destructive/30"
           aria-label={`Delete journal entry from ${formatEntryDate(entry.date)}`}
         >
           <Trash2 className="size-4" />
@@ -768,7 +768,7 @@ function JournalViewer({
 }) {
   return (
     <Dialog open={Boolean(entry)} onOpenChange={onOpenChange}>
-      <DialogContent className="h-[100dvh] max-h-none w-screen max-w-none overflow-y-auto rounded-none border-0 bg-[linear-gradient(135deg,oklch(0.99_0.01_80),oklch(0.95_0.04_15),oklch(0.94_0.04_305))] p-5 shadow-none sm:p-8">
+      <DialogContent className="h-[100dvh] max-h-none w-screen max-w-none overflow-y-auto rounded-none border-0 bg-[linear-gradient(135deg,oklch(0.99_0.01_80),oklch(0.95_0.04_15),oklch(0.94_0.04_305))] dark:bg-[linear-gradient(135deg,oklch(0.19_0.03_300),oklch(0.22_0.025_15),oklch(0.21_0.03_305))] p-5 shadow-none sm:p-8">
         {entry ? (
           <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center py-10">
             <DialogHeader>
@@ -785,7 +785,7 @@ function JournalViewer({
             <motion.div
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-8 rounded-[24px] border border-white/75 bg-white/65 p-6 text-lg leading-9 shadow-[0_24px_70px_-42px_oklch(0.4_0.12_305_/_0.7)] backdrop-blur-xl"
+              className="mt-8 rounded-[24px] border border-border/60 bg-card/65 p-6 text-lg leading-9 shadow-[0_24px_70px_-42px_oklch(0.4_0.12_305_/_0.7)] backdrop-blur-xl text-foreground"
             >
               {entry.text}
             </motion.div>

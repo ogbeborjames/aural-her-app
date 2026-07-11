@@ -20,20 +20,46 @@ export const Route = createFileRoute("/app/checkin")({
   component: CheckIn,
 });
 
-const MOODS = ["Happy", "Calm", "Energetic", "Tired", "Anxious", "Emotional", "Irritated", "Sad"];
-const SYMPTOMS = [
-  "Cramps",
-  "Bloating",
-  "Headache",
-  "Fatigue",
-  "Nausea",
-  "Acne",
-  "Breast tenderness",
-  "Back pain",
-  "Cravings",
-  "Spotting",
-  "Heavy flow",
+type SelectionOption = {
+  label: string;
+  emoji: string;
+};
+
+const MOODS: SelectionOption[] = [
+  { label: "Happy", emoji: "😊" },
+  { label: "Calm", emoji: "😌" },
+  { label: "Energetic", emoji: "⚡" },
+  { label: "Tired", emoji: "😴" },
+  { label: "Anxious", emoji: "😰" },
+  { label: "Emotional", emoji: "🥹" },
+  { label: "Irritated", emoji: "😤" },
+  { label: "Sad", emoji: "😔" },
 ];
+
+const SYMPTOMS: SelectionOption[] = [
+  { label: "Cramps", emoji: "💥" },
+  { label: "Bloating", emoji: "🎈" },
+  { label: "Headache", emoji: "🤕" },
+  { label: "Fatigue", emoji: "🥱" },
+  { label: "Nausea", emoji: "🤢" },
+  { label: "Acne", emoji: "🫧" },
+  { label: "Breast tenderness", emoji: "💗" },
+  { label: "Back pain", emoji: "🩹" },
+  { label: "Cravings", emoji: "🍫" },
+  { label: "Spotting", emoji: "🩸" },
+  { label: "Heavy flow", emoji: "🩸🩸" },
+];
+
+function SelectionLabel({ option }: { option: SelectionOption }) {
+  return (
+    <span className="flex items-center gap-2">
+      <span aria-hidden="true" className="text-lg leading-none">
+        {option.emoji}
+      </span>
+      <span>{option.label}</span>
+    </span>
+  );
+}
 
 function Chip({
   active,
@@ -47,8 +73,11 @@ function Chip({
   return (
     <button
       type="button"
+      aria-pressed={active}
       onClick={onClick}
-      className="rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all"
+      className={`rounded-full border px-3.5 py-2 text-sm font-medium transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+        active ? "shadow-sm" : "shadow-none"
+      }`}
       style={{
         borderColor: active ? "var(--primary)" : "var(--border)",
         backgroundColor: active ? "oklch(0.82 0.09 305 / 0.2)" : "var(--card)",
@@ -299,11 +328,11 @@ function CheckIn() {
         <div className="flex flex-wrap gap-2">
           {MOODS.map((mood) => (
             <Chip
-              key={mood}
-              active={moods.includes(mood)}
-              onClick={() => toggle(moods, mood, setMoods)}
+              key={mood.label}
+              active={moods.includes(mood.label)}
+              onClick={() => toggle(moods, mood.label, setMoods)}
             >
-              {mood}
+              <SelectionLabel option={mood} />
             </Chip>
           ))}
         </div>
@@ -313,11 +342,11 @@ function CheckIn() {
         <div className="flex flex-wrap gap-2">
           {SYMPTOMS.map((symptom) => (
             <Chip
-              key={symptom}
-              active={symptoms.includes(symptom)}
-              onClick={() => toggle(symptoms, symptom, setSymptoms)}
+              key={symptom.label}
+              active={symptoms.includes(symptom.label)}
+              onClick={() => toggle(symptoms, symptom.label, setSymptoms)}
             >
-              {symptom}
+              <SelectionLabel option={symptom} />
             </Chip>
           ))}
         </div>

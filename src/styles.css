@@ -1,4 +1,5 @@
-@import "tailwindcss" source(none);
+/* @import "tailwindcss" source(none); */
+@import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
 
@@ -170,18 +171,26 @@
 
 @utility bb-gradient-primary {
   background-image: linear-gradient(135deg, var(--lavender) 0%, var(--pink) 100%);
-  color: oklch(0.28 0.04 300);
-}
-.dark .bb-gradient-primary {
-  color: oklch(0.98 0.005 80);
+  color: var(--foreground);
 }
 
 @utility bb-gradient-sage {
   background-image: linear-gradient(135deg, var(--sage) 0%, var(--cream) 100%);
-  color: oklch(0.28 0.04 300);
+  color: var(--foreground);
 }
-.dark .bb-gradient-sage {
-  color: oklch(0.98 0.005 80);
+
+/* Journal decorative overlay — light & dark variants */
+.bb-journal-overlay {
+  background:
+    radial-gradient(circle at 18% 0%, oklch(0.88 0.08 15 / 0.42), transparent 34%),
+    radial-gradient(circle at 100% 16%, oklch(0.82 0.09 305 / 0.34), transparent 30%),
+    linear-gradient(135deg, oklch(1 0 0 / 0.72), oklch(0.97 0.02 85 / 0.52));
+}
+.dark .bb-journal-overlay {
+  background:
+    radial-gradient(circle at 18% 0%, oklch(0.35 0.06 15 / 0.3), transparent 34%),
+    radial-gradient(circle at 100% 16%, oklch(0.35 0.06 305 / 0.25), transparent 30%),
+    linear-gradient(135deg, oklch(0.24 0.035 300 / 0.5), oklch(0.28 0.03 85 / 0.4));
 }
 
 /* Smooth theme transition — applied by ThemeToggle during toggles */

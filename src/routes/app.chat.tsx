@@ -136,7 +136,7 @@ function ChatPage() {
         {messages.length === 0 && (
           <div className="bb-card p-5">
             <p className="text-sm">
-              Hi {nickname} 🌸 I'm Ene. Ask me anything about your cycle, mood,
+              Hi {nickname} 🌸 I'm Aural. Ask me anything about your cycle, mood,
               symptoms, or wellness. I use your logged data to personalize what I share.
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -198,7 +198,7 @@ function ChatPage() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask Ene…"
+          placeholder="Ask Aura…"
           className="flex-1 rounded-full border border-border bg-card px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
           disabled={loading}
         />
