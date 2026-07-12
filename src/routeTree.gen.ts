@@ -18,6 +18,7 @@ import { Route as AuthVerifySuccessRouteImport } from './routes/auth.verify-succ
 import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
 import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-password'
 import { Route as AuthExpiredLinkRouteImport } from './routes/auth.expired-link'
+import { Route as AuthCheckEmailRouteImport } from './routes/auth.check-email'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
 import { Route as AppCheckinRouteImport } from './routes/app.checkin'
@@ -69,6 +70,11 @@ const AuthExpiredLinkRoute = AuthExpiredLinkRouteImport.update({
   path: '/expired-link',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthCheckEmailRoute = AuthCheckEmailRouteImport.update({
+  id: '/check-email',
+  path: '/check-email',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/callback',
   path: '/callback',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/app/checkin': typeof AppCheckinRoute
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/app/checkin': typeof AppCheckinRoute
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/app/checkin': typeof AppCheckinRoute
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
+  '/auth/check-email': typeof AuthCheckEmailRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
   '/auth/forgot-password': typeof AuthForgotPasswordRoute
   '/auth/reset-password': typeof AuthResetPasswordRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/app/checkin'
     | '/app/profile'
     | '/auth/callback'
+    | '/auth/check-email'
     | '/auth/expired-link'
     | '/auth/forgot-password'
     | '/auth/reset-password'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/app/checkin'
     | '/app/profile'
     | '/auth/callback'
+    | '/auth/check-email'
     | '/auth/expired-link'
     | '/auth/forgot-password'
     | '/auth/reset-password'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/app/checkin'
     | '/app/profile'
     | '/auth/callback'
+    | '/auth/check-email'
     | '/auth/expired-link'
     | '/auth/forgot-password'
     | '/auth/reset-password'
@@ -265,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthExpiredLinkRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/auth/check-email': {
+      id: '/auth/check-email'
+      path: '/check-email'
+      fullPath: '/auth/check-email'
+      preLoaderRoute: typeof AuthCheckEmailRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/auth/callback': {
       id: '/auth/callback'
       path: '/callback'
@@ -323,6 +342,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 interface AuthRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
+  AuthCheckEmailRoute: typeof AuthCheckEmailRoute
   AuthExpiredLinkRoute: typeof AuthExpiredLinkRoute
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute
@@ -331,6 +351,7 @@ interface AuthRouteChildren {
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthCallbackRoute: AuthCallbackRoute,
+  AuthCheckEmailRoute: AuthCheckEmailRoute,
   AuthExpiredLinkRoute: AuthExpiredLinkRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
