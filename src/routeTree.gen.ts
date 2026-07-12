@@ -15,6 +15,8 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AuthVerifySuccessRouteImport } from './routes/auth.verify-success'
+import { Route as AuthResetPasswordRouteImport } from './routes/auth.reset-password'
+import { Route as AuthForgotPasswordRouteImport } from './routes/auth.forgot-password'
 import { Route as AuthExpiredLinkRouteImport } from './routes/auth.expired-link'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
@@ -50,6 +52,16 @@ const AppIndexRoute = AppIndexRouteImport.update({
 const AuthVerifySuccessRoute = AuthVerifySuccessRouteImport.update({
   id: '/verify-success',
   path: '/verify-success',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthForgotPasswordRoute = AuthForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => AuthRoute,
 } as any)
 const AuthExpiredLinkRoute = AuthExpiredLinkRouteImport.update({
@@ -94,6 +106,8 @@ export interface FileRoutesByFullPath {
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/verify-success': typeof AuthVerifySuccessRoute
   '/app/': typeof AppIndexRoute
 }
@@ -107,6 +121,8 @@ export interface FileRoutesByTo {
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/verify-success': typeof AuthVerifySuccessRoute
   '/app': typeof AppIndexRoute
 }
@@ -122,6 +138,8 @@ export interface FileRoutesById {
   '/app/profile': typeof AppProfileRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/expired-link': typeof AuthExpiredLinkRoute
+  '/auth/forgot-password': typeof AuthForgotPasswordRoute
+  '/auth/reset-password': typeof AuthResetPasswordRoute
   '/auth/verify-success': typeof AuthVerifySuccessRoute
   '/app/': typeof AppIndexRoute
 }
@@ -138,6 +156,8 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/auth/callback'
     | '/auth/expired-link'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/auth/verify-success'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
@@ -151,6 +171,8 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/auth/callback'
     | '/auth/expired-link'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/auth/verify-success'
     | '/app'
   id:
@@ -165,6 +187,8 @@ export interface FileRouteTypes {
     | '/app/profile'
     | '/auth/callback'
     | '/auth/expired-link'
+    | '/auth/forgot-password'
+    | '/auth/reset-password'
     | '/auth/verify-success'
     | '/app/'
   fileRoutesById: FileRoutesById
@@ -218,6 +242,20 @@ declare module '@tanstack/react-router' {
       path: '/verify-success'
       fullPath: '/auth/verify-success'
       preLoaderRoute: typeof AuthVerifySuccessRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/reset-password': {
+      id: '/auth/reset-password'
+      path: '/reset-password'
+      fullPath: '/auth/reset-password'
+      preLoaderRoute: typeof AuthResetPasswordRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/auth/forgot-password': {
+      id: '/auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/auth/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordRouteImport
       parentRoute: typeof AuthRoute
     }
     '/auth/expired-link': {
@@ -286,12 +324,16 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 interface AuthRouteChildren {
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthExpiredLinkRoute: typeof AuthExpiredLinkRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
+  AuthResetPasswordRoute: typeof AuthResetPasswordRoute
   AuthVerifySuccessRoute: typeof AuthVerifySuccessRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthCallbackRoute: AuthCallbackRoute,
   AuthExpiredLinkRoute: AuthExpiredLinkRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
+  AuthResetPasswordRoute: AuthResetPasswordRoute,
   AuthVerifySuccessRoute: AuthVerifySuccessRoute,
 }
 

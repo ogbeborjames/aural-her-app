@@ -186,6 +186,17 @@ function AuthPage() {
           <Button type="submit" className="w-full rounded-full" disabled={loading}>
             {loading ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}
           </Button>
+          {mode === "signin" && (
+  <div className="mt-3 text-center">
+    <button
+      type="button"
+      onClick={() => router.navigate({ to: "/auth/forgot-password" })}
+      className="text-sm font-medium text-primary hover:underline"
+    >
+      Forgot Password?
+    </button>
+  </div>
+)}
         </form>
         <p className="mt-5 text-center text-sm text-muted-foreground">
           {mode === "signup" ? "Already have an account?" : "New here?"}{" "}
