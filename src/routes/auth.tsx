@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
 import { lovable } from "@/integrations/lovable/index";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -40,6 +41,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -172,43 +174,83 @@ function AuthPage() {
             <Label htmlFor="email">Email</Label>
             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-            />
-          </div>
-          <Button type="submit" className="w-full rounded-full" disabled={loading}>
-            {loading ? "Please wait…" : mode === "signup" ? "Create account" : "Sign in"}
-          </Button>
-          {mode === "signin" && (
+           
+        <div className="space-y-1.5">
+   <Label htmlFor="password">Password</Label>
+
+  <div className="relative">
+
+    <Input
+      id="password"
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+      minLength={6}
+      className="pr-12"
+    />
+
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-3 flex items-center text-muted-foreground hover:text-primary transition"
+    >
+      {showPassword ? (
+        <EyeOff size={18} />
+      ) : (
+        <Eye size={18} />
+      )}
+    </button>
+
+  </div>
+</div>
+      
+
+
+{mode === "signin" && (
   <div className="mt-3 text-center">
     <button
       type="button"
       onClick={() => router.navigate({ to: "/auth/forgot-password" })}
       className="text-sm font-medium text-primary hover:underline"
+      aria-label="Forgot Password"
     >
       Forgot Password?
     </button>
   </div>
 )}
-        </form>
-        <p className="mt-5 text-center text-sm text-muted-foreground">
-          {mode === "signup" ? "Already have an account?" : "New here?"}{" "}
-          <button
-            type="button"
-            className="font-semibold text-primary underline-offset-4 hover:underline"
-            onClick={() => setMode(mode === "signup" ? "signin" : "signup")}
-          >
-            {mode === "signup" ? "Sign in" : "Create one"}
-          </button>
-        </p>
+
+<Button
+  type="submit"
+  className="mt-4 w-full rounded-full"
+  disabled={loading}
+>
+  {loading
+    ? "Please wait..."
+    : mode === "signup"
+    ? "Create Account"
+    : "Sign In"}
+</Button>
+
+</form>
+
+<p className="mt-5 text-center text-sm text-muted-foreground">
+  {mode === "signup"
+    ? "Already have an account?"
+    : "New here?"}{" "}
+  <button
+    type="button"
+    className="font-semibold text-primary underline-offset-4 hover:underline"
+    onClick={() =>
+      setMode(mode === "signup" ? "signin" : "signup")
+    }
+  >
+    {mode === "signup" ? "Sign in" : "Create one"}
+  </button>
+ </p>
+
       </div>
     </div>
   );
 }
+
