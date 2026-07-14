@@ -31,6 +31,7 @@ function ChatPage() {
   const [context, setContext] = useState<string>("");
   const [nickname, setNickname] = useState<string>("bestie");
   const bottomRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -193,17 +194,29 @@ function ChatPage() {
           e.preventDefault();
           void send();
         }}
-        className="sticky bottom-24 mt-3 flex flex-col gap-2 sm:bottom-20 sm:flex-row"
+        className="sticky bottom-24 mt-3 flex w-full flex-nowrap items-end gap-3 sm:bottom-20"
       >
-        <input
+        <textarea
+          ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onInput={(e) => {
+            const t = e.currentTarget as HTMLTextAreaElement;
+            t.style.height = "auto";
+            t.style.height = `${Math.min(200, t.scrollHeight)}px`;
+          }}
           placeholder="Ask Aura…"
-          className="flex-1 rounded-full border border-border bg-card px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+          rows={1}
+          className="min-w-0 flex-1 resize-none rounded-2xl border border-border bg-card px-4 py-3 text-sm leading-5 outline-none focus:ring-2 focus:ring-ring"
           disabled={loading}
         />
-        <Button type="submit" size="icon" className="h-12 w-full rounded-full sm:w-12" disabled={loading}>
-          <Send className="h-4 w-4" />
+        <Button
+          type="submit"
+          className="shrink-0 h-12 w-12 rounded-full p-0"
+          aria-label="Send message"
+          disabled={loading || input.trim().length === 0}
+        >
+          {loading ? <Send className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
         </Button>
       </form>
     </div>

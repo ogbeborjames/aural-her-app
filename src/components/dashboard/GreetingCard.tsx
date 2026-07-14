@@ -23,7 +23,7 @@ export default function GreetingCard({ greeting, name, avatarUrl }: GreetingCard
         </h1>
 
         <p className="mt-1 text-sm text-muted-foreground truncate">
-          Let's take care of your body today 🌸
+          Let's take care of your body🌸
         </p>
       </div>
 
