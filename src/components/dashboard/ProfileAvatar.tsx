@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useAuth } from "@/lib/use-auth";
+import { supabase } from "@/integrations/supabase/client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { uploadAvatarFile, deleteAvatarPath, publicUrlToPath } from "./avatarStorage";
@@ -9,6 +10,7 @@ type Props = {
   size?: number; // px
   name: string;
   currentUrl?: string | null;
+  avatarPath?: string | null;
 };
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -55,7 +57,7 @@ async function resizeImage(file: File, maxDim = 1024) {
   });
 }
 
-export default function ProfileAvatar({ size = 48, name, currentUrl }: Props) {
+export default function ProfileAvatar({ size = 48, name, currentUrl, avatarPath }: Props) {
   const { user } = useAuth();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -73,6 +75,21 @@ export default function ProfileAvatar({ size = 48, name, currentUrl }: Props) {
     return () => mq.removeEventListener?.("change", handler);
   }, []);
 
+  useEffect(() => {
+    // if an avatarPath is provided and we don't yet have a preview, fetch its public url
+    if (avatarPath && !preview) {
+      const fetchUrl = async () => {
+        try {
+          const { data } = supabase.storage.from("avatars").getPublicUrl(avatarPath);
+          setPreview(data.publicUrl ?? null);
+        } catch (e) {
+          console.warn("failed to get public url for avatar path", e);
+        }
+      };
+      void fetchUrl();
+    }
+  }, [avatarPath, preview]);
+
   async function handleUpload(file: File) {
     if (!file || !uid) return;
     if (!ALLOWED_TYPES.includes(file.type)) {
@@ -89,23 +106,16 @@ export default function ProfileAvatar({ size = 48, name, currentUrl }: Props) {
 
       const { publicUrl, path } = await uploadAvatarFile(file, uid);
 
-      // update profile record
-      const { error } = await (await import("@/integrations/supabase/client")).supabase
-        .from("profiles")
-        .update({ avatar_url: publicUrl })
-        .eq("user_id", uid);
+      // update profile record with both public url and storage path
+      const { error } = await supabase.from("profiles").update({ avatar_url: publicUrl, avatar_path: path }).eq("user_id", uid);
       if (error) throw error;
 
-      // attempt to delete previous
-      if (currentUrl) {
-        const oldPath = publicUrlToPath(currentUrl);
-        if (oldPath) {
-          try {
-            await deleteAvatarPath(oldPath);
-          } catch (e) {
-            console.warn("failed to delete old avatar", e);
-          }
-        }
+      // attempt to delete previous using provided avatarPath prop first
+      try {
+        const oldPath = avatarPath ?? publicUrlToPath(currentUrl ?? "");
+        if (oldPath) await deleteAvatarPath(oldPath);
+      } catch (e) {
+        console.warn("failed to delete old avatar", e);
       }
 
       setPreview(publicUrl);
@@ -131,18 +141,15 @@ export default function ProfileAvatar({ size = 48, name, currentUrl }: Props) {
   }
 
   async function onRemove() {
-    if (!uid || !preview) return;
+    if (!uid) return;
     const ok = window.confirm("Remove your profile picture?");
     if (!ok) return;
     setUploading(true);
     try {
-      const oldPath = publicUrlToPath(preview) || undefined;
-      if (oldPath) await deleteAvatarPath(oldPath);
+      const pathToRemove = avatarPath ?? publicUrlToPath(preview ?? "");
+      if (pathToRemove) await deleteAvatarPath(pathToRemove);
 
-      const { error } = await (await import("@/integrations/supabase/client")).supabase
-        .from("profiles")
-        .update({ avatar_url: null })
-        .eq("user_id", uid);
+      const { error } = await supabase.from("profiles").update({ avatar_url: null, avatar_path: null }).eq("user_id", uid);
       if (error) throw error;
       setPreview(null);
       setOpen(false);
