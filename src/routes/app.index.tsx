@@ -65,6 +65,7 @@ function Dashboard() {
       <GreetingCard
         greeting={greeting}
         name={data.profile?.nickname ?? data.profile?.name ?? "Bestie"}
+        avatarUrl={(data.profile as any)?.avatar_url ?? null}
       />
 
       {cycle && <CycleOverview cycle={cycle} />}
