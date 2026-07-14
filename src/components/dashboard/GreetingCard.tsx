@@ -8,9 +8,9 @@ export default function GreetingCard({
   name,
 }: GreetingCardProps) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="bb-card grid gap-5 rounded-[28px] p-5 sm:p-6 md:grid-cols-[1.3fr_0.7fr]">
       <div>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground sm:text-base">
           {new Date().toLocaleDateString(undefined, {
             weekday: "long",
             month: "long",
@@ -18,7 +18,7 @@ export default function GreetingCard({
           })}
         </p>
 
-        <h1 className="mt-1 font-display text-3xl font-bold">
+        <h1 className="mt-1 font-display text-3xl font-bold sm:text-4xl">
           {greeting}
         </h1>
 
@@ -27,7 +27,7 @@ export default function GreetingCard({
         </p>
       </div>
 
-      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white shadow-lg">
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-xl font-bold text-white shadow-lg">
         {name.charAt(0).toUpperCase()}
       </div>
     </div>

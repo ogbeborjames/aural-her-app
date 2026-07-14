@@ -134,27 +134,27 @@ function AuthPage() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
-      <div className="fixed right-5 top-5">
+    <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+      <div className="fixed right-4 top-4 z-10">
         <ThemeToggle />
       </div>
       <div className="mb-8 text-center">
         <span className="bb-gradient-primary mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-3xl text-2xl">
           🌸
         </span>
-        <h1 className="font-display text-3xl font-semibold">
-          {mode === "signup" ? "Say hi to Aural Her" : "  Welcome back"}
+        <h1 className="font-display text-3xl font-semibold sm:text-4xl">
+          {mode === "signup" ? "Say hi to Aural Her" : "Welcome back"}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
           {mode === "signup" ? "Create your account in seconds." : "Sign in to see your cycle."}
         </p>
       </div>
 
-      <div className="bb-card mx-auto w-full max-w-md p-6 sm:p-7">
+      <div className="bb-card mx-auto w-full max-w-xl p-6 sm:p-8">
         <Button
           type="button"
           variant="outline"
-          className="w-full rounded-full"
+          className="h-12 w-full rounded-full"
           onClick={google}
           disabled={loading}
         >
@@ -163,7 +163,7 @@ function AuthPage() {
         <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
           <span className="h-px flex-1 bg-border" /> or email <span className="h-px flex-1 bg-border" />
         </div>
-        <form onSubmit={submit} className="space-y-4">
+        <form onSubmit={submit} className="space-y-5">
           {mode === "signup" && (
             <div className="space-y-1.5">
               <Label htmlFor="name">First name</Label>

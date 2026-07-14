@@ -318,7 +318,7 @@ function CheckIn() {
   }
 
   return (
-    <div className="space-y-5 pb-8 md:space-y-6">
+    <div className="space-y-6 pb-10">
       <div>
         <p className="text-sm text-muted-foreground">{format(new Date(), "EEEE, MMMM d")}</p>
         <h1 className="font-display text-2xl font-semibold">Daily check-in</h1>
@@ -419,7 +419,7 @@ function CheckIn() {
         saving={saving}
       />
 
-      <Button onClick={save} disabled={saving} size="lg" className="w-full rounded-full md:mx-auto md:max-w-sm">
+      <Button onClick={save} disabled={saving} size="lg" className="h-12 w-full rounded-full md:mx-auto md:max-w-sm">
         {saving ? "Saving..." : "Save check-in"}
       </Button>
     </div>
@@ -428,7 +428,7 @@ function CheckIn() {
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="bb-card p-5">
+    <section className="bb-card p-6 sm:p-7">
       <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
         {title}
       </h2>

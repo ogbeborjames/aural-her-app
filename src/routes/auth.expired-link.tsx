@@ -25,8 +25,8 @@ function ExpiredLink() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="bb-card mx-auto max-w-md p-8 text-center">
+    <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+      <div className="bb-card mx-auto w-full max-w-md p-8 text-center">
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-destructive/10">
           <svg
             className="h-10 w-10 text-destructive"

@@ -189,7 +189,7 @@ function Onboarding() {
   const s = steps[step];
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 py-10 sm:px-6 lg:px-8">
+    <div className="bb-responsive flex min-h-screen flex-col py-10">
       <div className="mb-8 flex items-center gap-1.5">
         {steps.map((_, i) => (
           <div
@@ -200,13 +200,13 @@ function Onboarding() {
         ))}
       </div>
 
-      <div className="bb-card mx-auto w-full max-w-md p-6 sm:p-7">
+      <div className="bb-card mx-auto w-full max-w-2xl p-6 sm:p-8">
         <h1 className="font-display text-2xl font-semibold">{s.title}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{s.subtitle}</p>
         <div className="mt-6">{s.body}</div>
       </div>
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         {step > 0 && (
           <Button variant="ghost" className="flex-1 rounded-full" onClick={() => setStep(step - 1)}>
             Back

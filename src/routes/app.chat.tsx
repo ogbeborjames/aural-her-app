@@ -119,7 +119,7 @@ function ChatPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-8rem)] flex-col pb-8 md:min-h-[calc(100vh-10rem)]">
+    <div className="bb-responsive flex min-h-[calc(100vh-8rem)] flex-col pb-8 md:min-h-[calc(100vh-10rem)]">
       <div className="mb-3 flex items-center gap-3">
         <div className="bb-gradient-primary flex h-11 w-11 items-center justify-center rounded-2xl">
           <Sparkles className="h-5 w-5" />

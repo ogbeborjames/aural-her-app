@@ -10,8 +10,8 @@ function CheckEmailPage() {
     sessionStorage.getItem("reset-email") ?? "your email";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="bb-card w-full max-w-md rounded-3xl p-8 text-center">
+    <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+      <div className="bb-card mx-auto w-full max-w-md rounded-3xl p-8 text-center">
 
         <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-4xl">
           📧

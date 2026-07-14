@@ -167,6 +167,7 @@
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-soft);
   border: 1px solid var(--color-border);
+  backdrop-filter: blur(16px);
 }
 
 @utility bb-gradient-primary {
@@ -180,11 +181,12 @@
 }
 
 @utility bb-responsive {
-  width: min(100%, 92vw);
+  width: min(100%, 96vw);
   margin-inline: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: clamp(1rem, 4vw, 1.5rem);
+  padding-right: clamp(1rem, 4vw, 1.5rem);
   max-width: 1200px;
+  box-sizing: border-box;
 }
 
 @utility bb-modal-inner {
@@ -193,6 +195,14 @@
   margin-inline: auto;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+@utility bb-card-soft {
+  background-color: rgba(255, 255, 255, 0.88);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(16px);
 }
 
 /* Journal decorative overlay — light & dark variants */

@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background pb-24 md:pb-8">
-      <header className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 pt-5 sm:px-6 md:px-8 md:pt-8">
+      <header className="bb-responsive flex flex-wrap items-center justify-between gap-3 pt-5 pb-4">
         <Link to="/app" className="flex items-center gap-2">
           <span className="bb-gradient-primary flex h-9 w-9 items-center justify-center rounded-2xl text-lg">
             🌸
@@ -44,7 +44,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main className="bb-responsive pb-6 pt-4 md:pt-6">{children}</main>
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/85 backdrop-blur-xl md:bottom-4 md:left-1/2 md:w-[min(92vw,42rem)] md:-translate-x-1/2 md:rounded-full md:border md:border-border/70 md:bg-card/90 md:shadow-lg">
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/90 backdrop-blur-xl md:bottom-4 md:left-1/2 md:w-[min(92vw,42rem)] md:-translate-x-1/2 md:rounded-full md:border md:border-border/70 md:bg-card/95 md:shadow-lg">
         <div className="mx-auto flex items-stretch justify-between gap-1 px-2 py-2 md:max-w-5xl md:gap-2">
           {nav.map((n) => {
             const active = pathname === n.to || (n.to !== "/app" && pathname.startsWith(n.to));
@@ -54,7 +54,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 key={n.to}
                 to={n.to}
                 className={cn(
-                  "flex flex-1 flex-col items-center gap-1 rounded-xl px-2 py-2 text-xs transition-colors md:min-w-[72px] md:px-3",
+                  "flex flex-1 flex-col items-center gap-1 rounded-xl px-3 py-3 text-xs transition-colors md:min-w-[72px] md:px-3",
                   active ? "bg-primary/15 text-primary" : "text-muted-foreground",
                 )}
               >

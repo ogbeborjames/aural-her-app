@@ -71,7 +71,7 @@ function Dashboard() {
 
       <Link
         to="/app/checkin"
-        className="bb-card block p-5 transition-transform hover:-translate-y-0.5 md:p-6"
+        className="bb-card block rounded-[28px] p-6 transition-transform hover:-translate-y-0.5"
       >
         <div className="flex items-center gap-4">
           <div className="bb-gradient-primary flex h-12 w-12 items-center justify-center rounded-2xl">
@@ -92,7 +92,7 @@ function Dashboard() {
 
       <Link
         to="/app/chat"
-        className="bb-card block overflow-hidden p-5 transition-transform hover:-translate-y-0.5 md:p-6"
+        className="bb-card block overflow-hidden rounded-[28px] p-6 transition-transform hover:-translate-y-0.5"
       >
         <div className="flex items-center gap-3">
           <div className="bb-gradient-sage flex h-11 w-11 items-center justify-center rounded-2xl">

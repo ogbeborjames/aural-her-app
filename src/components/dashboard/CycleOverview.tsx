@@ -11,7 +11,7 @@ export default function CycleOverview({
   return (
     <>
       <section
-        className="bb-card overflow-hidden p-5 sm:p-6 md:p-7"
+        className="bb-card overflow-hidden rounded-[28px] p-5 sm:p-6 md:p-7"
         style={{
           backgroundImage: `linear-gradient(135deg, ${phaseColor(cycle.phase)} 0%, var(--cream) 130%)`,
           color: "var(--foreground)",
@@ -23,7 +23,7 @@ export default function CycleOverview({
               {cycle.phaseLabel}
             </p>
 
-            <h2 className="mt-1 font-display text-3xl font-semibold">
+            <h2 className="mt-1 font-display text-2xl font-semibold sm:text-3xl">
               Day {cycle.cycleDay}
             </h2>
 
@@ -84,7 +84,7 @@ function MiniCard({
   tint: string;
 }) {
   return (
-    <div className="bb-card p-4">
+    <div className="bb-card rounded-[24px] border border-border/50 bg-card/90 p-4">
       <div className="mb-2 flex items-center gap-2">
         <span
           className="h-2 w-2 rounded-full"

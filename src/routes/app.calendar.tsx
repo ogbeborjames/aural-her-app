@@ -101,13 +101,13 @@ function CalendarPage() {
         </div>
       </div>
 
-      <div className="bb-card p-4 overflow-x-auto">
-        <div className="mb-2 min-w-[20rem] grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase tracking-wider text-muted-foreground sm:gap-2 sm:text-[11px]">
+      <div className="bb-card p-4">
+        <div className="mb-2 grid grid-cols-7 gap-1 text-center text-[10px] font-semibold uppercase tracking-wider text-muted-foreground sm:gap-2 sm:text-[11px]">
           {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
             <div key={i}>{d}</div>
           ))}
         </div>
-        <div className="min-w-[20rem] grid grid-cols-7 gap-1 sm:gap-2">
+        <div className="grid grid-cols-7 gap-1 sm:gap-2">
           {days.map((d) => {
             const key = format(d, "yyyy-MM-dd");
             const inMonth = isSameMonth(d, month);
@@ -136,7 +136,7 @@ function CalendarPage() {
             return (
               <div
                 key={key}
-                className="relative flex aspect-square items-center justify-center rounded-full text-sm font-medium transition-transform hover:scale-105 sm:text-[15px]"
+                className="relative flex aspect-square min-h-[2.1rem] items-center justify-center rounded-full text-[11px] font-medium transition-transform hover:scale-105 sm:text-[13px]"
                 style={{ backgroundColor: bg, color, border, opacity: inMonth ? 1 : 0.4 }}
               >
                 {isToday && (

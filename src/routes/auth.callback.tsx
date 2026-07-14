@@ -163,8 +163,8 @@ function AuthCallback() {
 
   if (status === "loading") {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <div className="text-center">
+      <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+        <div className="mx-auto text-center">
           <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           <p className="text-sm text-muted-foreground">
             Verifying your request…
@@ -175,8 +175,8 @@ function AuthCallback() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
+    <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+      <div className="mx-auto w-full max-w-md text-center">
         <span className="bb-gradient-primary mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-3xl text-2xl">
           🌸
         </span>

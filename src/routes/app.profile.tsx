@@ -67,15 +67,17 @@ function Profile() {
   }
 
   return (
-    <div className="space-y-5 pb-8 md:space-y-6">
-      <h1 className="font-display text-2xl font-semibold">You</h1>
+    <div className="space-y-6 pb-10">
+      <div className="bb-card p-6 sm:p-7">
+        <h1 className="font-display text-2xl font-semibold">You</h1>
+      </div>
 
-      <section className="bb-card p-5">
+      <section className="bb-card p-6 sm:p-7">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Account</p>
         <p className="mt-2 text-sm">{email}</p>
       </section>
 
-      <section className="bb-card space-y-4 p-5">
+      <section className="bb-card space-y-4 p-6 sm:p-7">
         <div className="space-y-1.5">
           <Label>Nickname</Label>
           <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
@@ -113,7 +115,7 @@ function Profile() {
         </p>
       </section>
 
-      <Button variant="outline" className="w-full rounded-full" onClick={signOut}>
+      <Button variant="outline" className="h-12 w-full rounded-full" onClick={signOut}>
         Sign out
       </Button>
     </div>

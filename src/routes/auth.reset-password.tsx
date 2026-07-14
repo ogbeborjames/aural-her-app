@@ -54,8 +54,8 @@ function ResetPassword() {
   }
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md items-center px-6">
-      <div className="w-full rounded-3xl border bg-card p-8 shadow-xl">
+    <div className="bb-responsive flex min-h-screen flex-col justify-center py-10">
+      <div className="mx-auto w-full max-w-md rounded-3xl border bg-card p-8 shadow-xl">
 
         <div className="mb-8 text-center">
           <div className="text-5xl mb-3">🌸</div>

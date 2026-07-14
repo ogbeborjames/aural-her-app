@@ -16,59 +16,59 @@ export default function TodayCard({
   journal,
 }: TodayCardProps) {
   return (
-    <div className="rounded-3xl border bg-card p-6 shadow-sm">
-      <h3 className="mb-5 text-xl font-semibold">
+    <div className="bb-card rounded-[28px] p-6 shadow-sm">
+      <h3 className="mb-5 text-xl font-semibold sm:text-2xl">
         Today's Summary
       </h3>
 
-      <div className="space-y-4">
+      <div className="grid gap-4">
 
-        <div className="flex justify-between">
-          <span className="flex items-center gap-2">
-            <Smile size={18} />
+        <div className="flex flex-col gap-3 rounded-[20px] bg-muted/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Smile className="h-5 w-5" />
             Mood
           </span>
 
-          <span>
+          <span className="text-sm font-semibold text-foreground">
             {moods.length ? moods.join(", ") : "Not logged"}
           </span>
         </div>
 
-        <div className="flex justify-between">
-          <span className="flex items-center gap-2">
-            <Zap size={18} />
+        <div className="flex flex-col gap-3 rounded-[20px] bg-muted/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Zap className="h-5 w-5" />
             Energy
           </span>
 
-          <span>
+          <span className="text-sm font-semibold text-foreground">
             {energy ?? "--"}
           </span>
         </div>
 
-        <div className="flex justify-between">
-          <span className="flex items-center gap-2">
-            <Moon size={18} />
+        <div className="flex flex-col gap-3 rounded-[20px] bg-muted/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Moon className="h-5 w-5" />
             Sleep
           </span>
 
-          <span>
+          <span className="text-sm font-semibold text-foreground">
             {sleepHours ?? "--"} hrs
           </span>
         </div>
 
-        <div className="flex justify-between">
-          <span className="flex items-center gap-2">
-            <Droplets size={18} />
+        <div className="flex flex-col gap-3 rounded-[20px] bg-muted/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Droplets className="h-5 w-5" />
             Water
           </span>
 
-          <span>
+          <span className="text-sm font-semibold text-foreground">
             {waterMl ?? 0} ml
           </span>
         </div>
 
         {journal && (
-          <div className="rounded-xl bg-muted p-3 text-sm">
+          <div className="rounded-2xl bg-muted/70 p-4 text-sm leading-6 text-foreground">
             {journal}
           </div>
         )}
