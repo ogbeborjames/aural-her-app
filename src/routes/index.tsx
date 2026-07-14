@@ -29,7 +29,7 @@ function Feature({ icon: Icon, title, desc }: { icon: typeof Sparkles; title: st
 
 function Landing() {
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 pb-20 pt-10 sm:px-6 md:px-8 lg:px-10">
+    <div className="bb-responsive pb-20 pt-10">
       <header className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="bb-gradient-primary flex h-10 w-10 items-center justify-center rounded-2xl text-xl">🌸</span>

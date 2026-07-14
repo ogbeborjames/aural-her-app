@@ -193,7 +193,7 @@ function ChatPage() {
           e.preventDefault();
           void send();
         }}
-        className="sticky bottom-24 mt-3 flex gap-2 md:bottom-20"
+        className="sticky bottom-24 mt-3 flex flex-col gap-2 sm:bottom-20 sm:flex-row"
       >
         <input
           value={input}
@@ -202,7 +202,7 @@ function ChatPage() {
           className="flex-1 rounded-full border border-border bg-card px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
           disabled={loading}
         />
-        <Button type="submit" size="icon" className="h-12 w-12 rounded-full" disabled={loading}>
+        <Button type="submit" size="icon" className="h-12 w-full rounded-full sm:w-12" disabled={loading}>
           <Send className="h-4 w-4" />
         </Button>
       </form>

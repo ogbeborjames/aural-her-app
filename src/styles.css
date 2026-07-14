@@ -179,6 +179,22 @@
   color: var(--foreground);
 }
 
+@utility bb-responsive {
+  width: min(100%, 92vw);
+  margin-inline: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1200px;
+}
+
+@utility bb-modal-inner {
+  width: min(100%, 92vw);
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 /* Journal decorative overlay — light & dark variants */
 .bb-journal-overlay {
   background:

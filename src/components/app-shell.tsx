@@ -43,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           )}
         </div>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-4 pb-6 pt-4 sm:px-6 md:px-8 md:pt-6">{children}</main>
+      <main className="bb-responsive pb-6 pt-4 md:pt-6">{children}</main>
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-card/85 backdrop-blur-xl md:bottom-4 md:left-1/2 md:w-[min(92vw,42rem)] md:-translate-x-1/2 md:rounded-full md:border md:border-border/70 md:bg-card/90 md:shadow-lg">
         <div className="mx-auto flex items-stretch justify-between gap-1 px-2 py-2 md:max-w-5xl md:gap-2">
           {nav.map((n) => {

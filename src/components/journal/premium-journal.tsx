@@ -397,7 +397,7 @@ export function PremiumJournal({
                   <p className="mt-2 text-sm font-semibold text-foreground">
                     {getMoodEmoji(todaysSavedEntry)} {formatEntryDate(todaysSavedEntry.date)}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  <p className="mt-2 text-sm leading-6 text-foreground">
                     {getPreview(todaysSavedEntry.text)}
                   </p>
                 </div>
@@ -712,7 +712,7 @@ function TimelineCard({
       exit={{ opacity: 0, scale: 0.92, height: 0, margin: 0 }}
       whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 240, damping: 22 }}
-      className="rounded-[24px] border border-border/60 bg-card/65 p-4 shadow-[0_16px_44px_-34px_oklch(0.4_0.12_305_/_0.75)]"
+      className="rounded-[24px] border border-border/60 bg-card p-4 shadow-[0_16px_44px_-34px_oklch(0.4_0.12_305_/_0.75)]"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
@@ -733,7 +733,7 @@ function TimelineCard({
           <Star className={cn("size-5", entry.favorite && "fill-primary")} />
         </button>
       </div>
-      <p className="mt-4 min-h-16 text-sm leading-6 text-muted-foreground">
+      <p className="mt-4 min-h-16 text-sm leading-6 text-foreground">
         {getPreview(entry.text)}
       </p>
       <div className="mt-4 flex items-center justify-between gap-3">
@@ -768,9 +768,9 @@ function JournalViewer({
 }) {
   return (
     <Dialog open={Boolean(entry)} onOpenChange={onOpenChange}>
-      <DialogContent className="h-[100dvh] max-h-none w-screen max-w-none overflow-y-auto rounded-none border-0 bg-[linear-gradient(135deg,oklch(0.99_0.01_80),oklch(0.95_0.04_15),oklch(0.94_0.04_305))] dark:bg-[linear-gradient(135deg,oklch(0.19_0.03_300),oklch(0.22_0.025_15),oklch(0.21_0.03_305))] p-5 shadow-none sm:p-8">
+      <DialogContent className="h-[100dvh] max-h-none w-screen overflow-y-auto rounded-none border-0 bg-[linear-gradient(135deg,oklch(0.99_0.01_80),oklch(0.95_0.04_15),oklch(0.94_0.04_305))] dark:bg-[linear-gradient(135deg,oklch(0.19_0.03_300),oklch(0.22_0.025_15),oklch(0.21_0.03_305))] p-4 shadow-none sm:p-6">
         {entry ? (
-          <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center py-10">
+          <div className="bb-modal-inner mx-auto flex min-h-full w-full flex-col justify-center gap-6 py-8 sm:py-10">
             <DialogHeader>
               <p className="text-sm font-bold text-primary">
                 {getMoodEmoji(entry)} {entry.moods?.join(", ") || "Journal reflection"}
