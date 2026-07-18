@@ -38,16 +38,13 @@ function Landing() {
         <ThemeToggle />
       </header>
 
-      <section className="mt-14 text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-accent/60 px-3 py-1 text-xs font-medium text-accent-foreground">
-          <Sparkles className="h-3.5 w-3.5" /> Body bestie & wellness companion
-        </span>
-        <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+      <section className="mt-10 text-center">
+        <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
           Meet the best friend your body's been waiting for.
         </h1>
         <p className="mx-auto mt-5 max-w-md text-base text-muted-foreground">
           Track your cycle, log how you feel, and get warm, personalized insights from your AI
-          Body bestie — no clinical jargon, just gentle guidance.
+          Body bestie no clinical jargon, just gentle guidance.
         </p>
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Button asChild size="lg" className="rounded-full px-8">
@@ -60,14 +57,14 @@ function Landing() {
       </section>
 
       <section className="mt-14 grid gap-4 md:grid-cols-2">
-        <Feature icon={CalendarDays} title="Cycle intelligence" desc="Predictions for period, ovulation, fertile window, and PMS — all in one calm view." />
+        <Feature icon={CalendarDays} title="Cycle intelligence" desc="Predictions for period, ovulation, fertile window, and PMS all in one calm view." />
         <Feature icon={HeartPulse} title="Daily check-ins" desc="Log mood, symptoms, sleep, and energy in seconds. See gentle patterns over time." />
-        <Feature icon={Sparkles} title="AI Aural Her" desc="Ask anything — cravings, cramps, cycle phase. Warm, educational, never diagnostic." />
+        <Feature icon={Sparkles} title="AI Aural Her" desc="Ask anything: cravings, cramps, cycle phase. Warm, educational, never diagnostic." />
         <Feature icon={Shield} title="Private by design" desc="Your data is yours. Encrypted at rest, never sold. Delete anytime." />
       </section>
 
       <footer className="mt-16 text-center text-xs text-muted-foreground">
-        Aural Her is an educational wellness tool — not a substitute for medical care.
+        Aural Her is an educational wellness tool not a substitute for medical care.
       </footer>
     </div>
   );

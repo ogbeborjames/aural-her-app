@@ -39,6 +39,10 @@ function Dashboard() {
           .order("start_date", { ascending: false })
           .limit(1),
       ]);
+
+      if (profileRes.error) {
+        throw profileRes.error;
+      }
       return {
         profile: profileRes.data,
         todayLog: todayRes.data,
@@ -65,8 +69,8 @@ function Dashboard() {
       <GreetingCard
         greeting={greeting}
         name={data.profile?.nickname ?? data.profile?.name ?? "Bestie"}
-        avatarUrl={(data.profile as any)?.avatar_url ?? null}
-        avatarPath={(data.profile as any)?.avatar_path ?? null}
+        avatarUrl={data.profile?.avatar_url ?? null}
+        avatarPath={data.profile?.avatar_path ?? null}
       />
 
       {cycle && <CycleOverview cycle={cycle} />}

@@ -15,9 +15,11 @@ export default function Home() {
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
 
         <TodayCard
-          mood="😊 Happy"
-          energy="High"
-          sleep={8}
+          moods={["😊 Happy"]}
+          energy={8}
+          sleepHours={8}
+          waterMl={2200}
+          journal="Feeling steady and supported today."
         />
 
         <InsightCard

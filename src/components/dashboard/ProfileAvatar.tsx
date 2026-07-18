@@ -3,8 +3,13 @@ import { useAuth } from "@/lib/use-auth";
 import { supabase } from "@/integrations/supabase/client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { uploadAvatarFile, deleteAvatarPath, publicUrlToPath } from "./avatarStorage";
-import { Button } from "@/components/ui/button";
+import {
+  uploadAvatarFile,
+  deleteAvatarPath,
+  publicUrlToPath,
+  saveAvatarToProfile,
+  clearAvatarFromProfile,
+} from "./avatarStorage";
 
 type Props = {
   size?: number; // px
@@ -91,38 +96,44 @@ export default function ProfileAvatar({ size = 48, name, currentUrl, avatarPath 
   }, [avatarPath, preview]);
 
   async function handleUpload(file: File) {
-    if (!file || !uid) return;
+    if (!file) {
+      alert("Please choose an image to upload.");
+      return;
+    }
+
+    if (!uid) {
+      alert("You must be signed in to upload an avatar.");
+      return;
+    }
+
     if (!ALLOWED_TYPES.includes(file.type)) {
       alert("Please select a JPG, PNG, or WebP image.");
       return;
     }
+
     setUploading(true);
     try {
-      // resize if too big
       if (file.size > MAX_FILE_SIZE) {
         const blob = await resizeImage(file, 1024);
         file = new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), { type: "image/jpeg" });
       }
 
       const { publicUrl, path } = await uploadAvatarFile(file, uid);
+      await saveAvatarToProfile(uid, publicUrl, path);
 
-      // update profile record with both public url and storage path
-      const { error } = await supabase.from("profiles").update({ avatar_url: publicUrl, avatar_path: path }).eq("user_id", uid);
-      if (error) throw error;
-
-      // attempt to delete previous using provided avatarPath prop first
       try {
         const oldPath = avatarPath ?? publicUrlToPath(currentUrl ?? "");
         if (oldPath) await deleteAvatarPath(oldPath);
-      } catch (e) {
-        console.warn("failed to delete old avatar", e);
+      } catch (error) {
+        console.warn("[Avatar] Failed to delete previous storage object", error);
       }
 
       setPreview(publicUrl);
       setOpen(false);
-    } catch (e: any) {
-      console.error(e);
-      alert(e?.message ?? "Upload failed");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Upload failed";
+      console.error("[Avatar] Upload failed", { userId: uid, error });
+      alert(message);
     } finally {
       setUploading(false);
     }
@@ -141,21 +152,28 @@ export default function ProfileAvatar({ size = 48, name, currentUrl, avatarPath 
   }
 
   async function onRemove() {
-    if (!uid) return;
+    if (!uid) {
+      alert("You must be signed in to remove your avatar.");
+      return;
+    }
+
     const ok = window.confirm("Remove your profile picture?");
     if (!ok) return;
+
     setUploading(true);
     try {
       const pathToRemove = avatarPath ?? publicUrlToPath(preview ?? "");
-      if (pathToRemove) await deleteAvatarPath(pathToRemove);
+      if (pathToRemove) {
+        await deleteAvatarPath(pathToRemove);
+      }
 
-      const { error } = await supabase.from("profiles").update({ avatar_url: null, avatar_path: null }).eq("user_id", uid);
-      if (error) throw error;
+      await clearAvatarFromProfile(uid);
       setPreview(null);
       setOpen(false);
-    } catch (e: any) {
-      console.error(e);
-      alert(e?.message ?? "Remove failed");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Remove failed";
+      console.error("[Avatar] Remove failed", { userId: uid, error });
+      alert(message);
     } finally {
       setUploading(false);
     }
