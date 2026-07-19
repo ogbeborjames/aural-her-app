@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Sparkles, Send } from "lucide-react";
 import { computeCycle } from "@/lib/cycle";
 import { toast } from "sonner";
@@ -120,105 +121,106 @@ function ChatPage() {
   }
 
   return (
-    <div className="bb-responsive flex min-h-[calc(100vh-8rem)] flex-col pb-8 md:min-h-[calc(100vh-10rem)]">
-      <div className="mb-3 flex items-center gap-3">
-        <div className="bb-gradient-primary flex h-11 w-11 items-center justify-center rounded-2xl">
-          <Sparkles className="h-5 w-5" />
-        </div>
-        <div>
-          <h1 className="font-display text-xl font-semibold">Aural Her</h1>
-          <p className="text-xs text-muted-foreground">
-            Warm, educational guidance — never a replacement for medical care.
-          </p>
-        </div>
-      </div>
-
-      <div className="flex-1 space-y-3 overflow-y-auto py-2">
-        {messages.length === 0 && (
-          <div className="bb-card p-5">
-            <p className="text-sm">
-              Hi {nickname} 🌸 I'm Aural. Ask me anything about your cycle, mood,
-              symptoms, or wellness. I use your logged data to personalize what I share.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {SUGGESTIONS.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => send(s)}
-                  className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium hover:bg-muted"
-                >
-                  {s}
-                </button>
-              ))}
+    <div className="bb-responsive flex min-h-[calc(100vh-7.5rem)] flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-8.75rem)] md:pb-8">
+      <header className="sticky top-0 z-20 rounded-[28px] border border-border/70 bg-background/90 px-3 py-3 backdrop-blur-xl">
+        <div className="flex items-center gap-3">
+          <div className="bb-gradient-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl shadow-sm">
+            <Sparkles className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
+              <h1 className="font-display text-lg font-semibold sm:text-xl">Aural Her</h1>
+              <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-600 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Online
+              </span>
             </div>
+            <p className="mt-0.5 text-[11px] leading-4 text-muted-foreground sm:text-xs">
+              Warm, educational guidance — never a replacement for medical care.
+            </p>
           </div>
-        )}
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className="max-w-[90%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[80%] md:max-w-[70%]"
-            style={
-              m.role === "user"
-                ? {
-                    marginLeft: "auto",
-                    backgroundColor: "var(--primary)",
-                    color: "var(--primary-foreground)",
-                    borderBottomRightRadius: "0.5rem",
-                  }
-                : {
-                    backgroundColor: "var(--card)",
-                    color: "var(--card-foreground)",
-                    border: "1px solid var(--border)",
-                    borderBottomLeftRadius: "0.5rem",
-                  }
-            }
-          >
-            {m.content}
-          </div>
-        ))}
-        {loading && (
-          <div
-            className="max-w-[75%] rounded-2xl px-4 py-3 text-sm sm:max-w-[65%]"
-            style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)" }}
-          >
-            <span className="inline-flex gap-1">
-              <Dot /> <Dot delay={150} /> <Dot delay={300} />
-            </span>
-          </div>
-        )}
-        <div ref={bottomRef} />
-      </div>
+        </div>
+      </header>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          void send();
-        }}
-        className="sticky bottom-24 mt-3 flex w-full flex-nowrap items-end gap-3 sm:bottom-20"
-      >
-        <textarea
-          ref={textareaRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onInput={(e) => {
-            const t = e.currentTarget as HTMLTextAreaElement;
-            t.style.height = "auto";
-            t.style.height = `${Math.min(200, t.scrollHeight)}px`;
+      <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px]">
+        <div className="flex-1 overflow-y-auto overscroll-contain px-1 py-1">
+          <div className="mx-auto flex max-w-3xl flex-col gap-3">
+            {messages.length === 0 && (
+              <div className="bb-card p-4 sm:p-5">
+                <p className="text-[15px] leading-6 text-foreground sm:text-sm">
+                  Hi {nickname} 🌸 I'm Aural. Ask me anything about your cycle, mood,
+                  symptoms, or wellness. I use your logged data to personalize what I share.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {SUGGESTIONS.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => send(s)}
+                      className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {messages.map((m, i) => (
+              <div
+                key={i}
+                className={[
+                  "max-w-[86%] whitespace-pre-wrap wrap-break-word rounded-[24px] px-3.5 py-3 text-[15px] leading-6 shadow-sm sm:max-w-[78%] md:max-w-[72%]",
+                  m.role === "user"
+                    ? "ml-auto bg-primary text-primary-foreground rounded-br-md"
+                    : "mr-auto border border-border bg-card text-card-foreground rounded-bl-md",
+                ].join(" ")}
+              >
+                {m.content}
+              </div>
+            ))}
+            {loading && (
+              <div className="mr-auto max-w-[78%] rounded-[24px] rounded-bl-md border border-border bg-card px-3.5 py-3 text-sm shadow-sm sm:max-w-[68%]">
+                <span className="inline-flex items-center gap-1">
+                  <Dot /> <Dot delay={150} /> <Dot delay={300} />
+                </span>
+              </div>
+            )}
+            <div ref={bottomRef} />
+          </div>
+        </div>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            void send();
           }}
-          placeholder="Ask Aura…"
-          rows={1}
-          className="min-w-0 flex-1 resize-none rounded-2xl border border-border bg-card px-4 py-3 text-sm leading-5 outline-none focus:ring-2 focus:ring-ring"
-          disabled={loading}
-        />
-        <Button
-          type="submit"
-          className="shrink-0 h-12 w-12 rounded-full p-0"
-          aria-label="Send message"
-          disabled={loading || input.trim().length === 0}
+          className="border-t border-border/60 bg-background/90 px-1 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] pt-3 backdrop-blur-xl"
         >
-          {loading ? <Send className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-        </Button>
-      </form>
+          <div className="mx-auto flex max-w-3xl items-center gap-2">
+            <Textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onInput={(e) => {
+                const t = e.currentTarget as HTMLTextAreaElement;
+                t.style.height = "auto";
+                t.style.height = `${Math.min(168, t.scrollHeight)}px`;
+              }}
+              placeholder="Ask Aural Her…"
+              rows={1}
+              className="max-h-40 min-h-11 flex-1 resize-none rounded-[22px] border border-border bg-card px-4 py-3 text-[15px] leading-5 shadow-sm placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+              disabled={loading}
+            />
+            <Button
+              type="submit"
+              className="h-11 w-11 shrink-0 rounded-full p-0 shadow-sm"
+              aria-label="Send message"
+              disabled={loading || input.trim().length === 0}
+            >
+              {loading ? <Send className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+            </Button>
+          </div>
+        </form>
+      </section>
     </div>
   );
 }
