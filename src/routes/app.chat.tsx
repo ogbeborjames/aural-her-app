@@ -32,12 +32,20 @@ function ChatPage() {
   const [context, setContext] = useState<string>("");
   const [nickname, setNickname] = useState<string>("bestie");
   const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const shouldAutoScrollRef = useRef(true);
 
   useEffect(() => {
     (async () => {
       const { data: sess } = await supabase.auth.getSession();
-      const uid = sess.session!.user.id;
+      const uid = sess.session?.user?.id;
+
+      if (!uid) {
+        setContext("No active session yet.");
+        return;
+      }
+
       const [profileRes, todayLogRes, historyRes] = await Promise.all([
         supabase.from("profiles").select("*").eq("user_id", uid).single(),
         supabase
@@ -62,12 +70,18 @@ function ChatPage() {
       );
       const ctx = [
         p?.nickname ? `Nickname: ${p.nickname}` : null,
-        p?.date_of_birth ? `Age: ${new Date().getFullYear() - new Date(p.date_of_birth).getFullYear()}` : null,
+        p?.date_of_birth
+          ? `Age: ${new Date().getFullYear() - new Date(p.date_of_birth).getFullYear()}`
+          : null,
         cycle
           ? `Cycle day ${cycle.cycleDay} / ${cycle.cycleLength}, phase: ${cycle.phaseLabel}. Next period in ${cycle.daysUntilNextPeriod} days.`
           : "No cycle data yet.",
-        todayLogRes.data?.moods?.length ? `Today's mood: ${todayLogRes.data.moods.join(", ")}` : null,
-        todayLogRes.data?.symptoms?.length ? `Today's symptoms: ${todayLogRes.data.symptoms.join(", ")}` : null,
+        todayLogRes.data?.moods?.length
+          ? `Today's mood: ${todayLogRes.data.moods.join(", ")}`
+          : null,
+        todayLogRes.data?.symptoms?.length
+          ? `Today's symptoms: ${todayLogRes.data.symptoms.join(", ")}`
+          : null,
         todayLogRes.data?.sleep_hours ? `Slept: ${todayLogRes.data.sleep_hours}h` : null,
         p?.goals?.length ? `Goals: ${p.goals.join(", ")}` : null,
       ]
@@ -80,13 +94,25 @@ function ChatPage() {
     })();
   }, []);
 
+  function scrollToBottom(behavior: ScrollBehavior = "smooth") {
+    if (!scrollViewportRef.current) return;
+    scrollViewportRef.current.scrollTo({
+      top: scrollViewportRef.current.scrollHeight,
+      behavior,
+    });
+  }
+
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (shouldAutoScrollRef.current) {
+      scrollToBottom("smooth");
+    }
   }, [messages, loading]);
 
   async function send(text?: string) {
     const content = (text ?? input).trim();
     if (!content || loading) return;
+
+    shouldAutoScrollRef.current = true;
     setInput("");
     const next: Msg[] = [...messages, { role: "user", content }];
     setMessages(next);
@@ -94,13 +120,19 @@ function ChatPage() {
 
     try {
       const { data: sess } = await supabase.auth.getSession();
-      const uid = sess.session!.user.id;
+      const session = sess.session;
+      const uid = session?.user?.id;
+
+      if (!session?.access_token || !uid) {
+        throw new Error("Your session expired. Please sign in again.");
+      }
+
       const projectUrl = import.meta.env.VITE_SUPABASE_URL as string;
       const res = await fetch(`${projectUrl}/functions/v1/bestie-chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${sess.session!.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
           apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string,
         },
         body: JSON.stringify({ messages: next, context }),
@@ -121,8 +153,8 @@ function ChatPage() {
   }
 
   return (
-    <div className="bb-responsive flex min-h-[calc(100vh-7.5rem)] flex-col gap-3 pb-[calc(5rem+env(safe-area-inset-bottom))] md:min-h-[calc(100vh-8.75rem)] md:pb-8">
-      <header className="sticky top-0 z-20 rounded-[28px] border border-border/70 bg-background/90 px-3 py-3 backdrop-blur-xl">
+    <div className="flex min-h-[100dvh] flex-col">
+      <header className="sticky top-0 z-20 shrink-0 rounded-[28px] border border-border/70 bg-background/90 px-3 py-3 backdrop-blur-xl">
         <div className="flex items-center gap-3">
           <div className="bb-gradient-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl shadow-sm">
             <Sparkles className="h-5 w-5" />
@@ -142,14 +174,22 @@ function ChatPage() {
         </div>
       </header>
 
-      <section className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[28px]">
-        <div className="flex-1 overflow-y-auto overscroll-contain px-1 py-1">
+      <main className="flex min-h-0 flex-1 flex-col">
+        <div
+          ref={scrollViewportRef}
+          onScroll={() => {
+            const el = scrollViewportRef.current;
+            if (!el) return;
+            shouldAutoScrollRef.current = el.scrollHeight - el.scrollTop - el.clientHeight <= 120;
+          }}
+          className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-1 py-1"
+        >
           <div className="mx-auto flex max-w-3xl flex-col gap-3">
             {messages.length === 0 && (
               <div className="bb-card p-4 sm:p-5">
                 <p className="text-[15px] leading-6 text-foreground sm:text-sm">
-                  Hi {nickname} 🌸 I'm Aural. Ask me anything about your cycle, mood,
-                  symptoms, or wellness. I use your logged data to personalize what I share.
+                  Hi {nickname} 🌸 I'm Aural. Ask me anything about your cycle, mood, symptoms, or
+                  wellness. I use your logged data to personalize what I share.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {SUGGESTIONS.map((s) => (
@@ -193,7 +233,7 @@ function ChatPage() {
             e.preventDefault();
             void send();
           }}
-          className="border-t border-border/60 bg-background/90 px-1 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] pt-3 backdrop-blur-xl"
+          className="shrink-0 border-t border-border/60 bg-background/90 px-1 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] pt-3 backdrop-blur-xl"
         >
           <div className="mx-auto flex max-w-3xl items-center gap-2">
             <Textarea
@@ -220,7 +260,7 @@ function ChatPage() {
             </Button>
           </div>
         </form>
-      </section>
+      </main>
     </div>
   );
 }

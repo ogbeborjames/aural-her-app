@@ -26,7 +26,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-8">
+    <div className="min-h-[100dvh] overflow-x-hidden bg-background pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-8">
       <header className="bb-responsive flex flex-wrap items-center justify-between gap-3 pt-5 pb-4">
         <Link to="/app" className="flex items-center gap-2">
           <span className="bb-gradient-primary flex h-9 w-9 items-center justify-center rounded-2xl text-lg">
@@ -43,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           )}
         </div>
       </header>
-      <main className="bb-responsive pb-6 pt-4 md:pt-6">{children}</main>
+      <main className="bb-responsive flex min-h-0 flex-col pb-6 pt-4 md:pt-6">{children}</main>
       <nav className="fixed inset-x-0 bottom-0 z-40 h-16 border-t border-border bg-card/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:bottom-4 md:left-1/2 md:h-auto md:w-[min(92vw,42rem)] md:-translate-x-1/2 md:rounded-full md:border md:border-border/70 md:bg-card/95 md:pb-0 md:shadow-lg">
         <div className="mx-auto flex h-full items-stretch justify-evenly gap-0 px-1 md:max-w-5xl md:gap-1 md:px-2 md:py-2">
           {nav.map((n) => {
@@ -59,7 +59,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 )}
               >
                 <Icon className="h-5 w-5 shrink-0" strokeWidth={active ? 2.4 : 1.8} />
-                <span className={cn("truncate", active ? "font-semibold" : "font-medium")}>{n.label}</span>
+                <span className={cn("truncate", active ? "font-semibold" : "font-medium")}>
+                  {n.label}
+                </span>
               </Link>
             );
           })}
